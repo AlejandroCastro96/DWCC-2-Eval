@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body class="bg-dark">
+    <div class="container-fluid">
+        <div class="row">
+            <header class="col-12 bg-primary">
+                <div class="row">
+                    <h1 class="col-12 h1 text-center text-warning fw-bolder">DIGIMON</h1>
+                </div>
+                <div class="row justify-content-center">
+                    <!--<form class="col-4">
+                        <div class="input-group mb-2">
+                            <input class="form-control" type="text">
+                            <input class="form-control btn btn-outline-dark " type="button" value="Buscar">
+                        </div>
+
+                    </form>-->
+                    <div class="col-4 mb-2">
+                        <input class="form-control" id="textBox" type="text">
+                    </div>
+                    <div class="col-1 mb-2">
+                        <input class="form-control btn btn-outline-dark" id="button" type="button" value="Buscar">
+                    </div>
+                </div>
+            </header>
+
+        </div>
+        <div class="row justify-content-center">
+            <div id="name" class="col-4 text-center text-warning h3"></div>
+        </div>
+        <div class="row justify-content-center d-flex">
+            <div class="col-4 justify-content-center">
+                <img class="img-fluid" id="imagen" src="" alt="">
+                <div id="nivel" class="col-6 text-center text-warning"></div>
+            </div>
+
+        </div>
+</body>
+<script>
+    /*digi-api.com/api/v1/digimon/ */
+    document.getElementById("button").addEventListener("click", buscar)
+    function buscar() {
+        let buscador = document.querySelector("#textBox");
+        let digi = buscador.value;
+        console.log(digi);
+
+        fetch("https://digimon-api.vercel.app/api/digimon/name/" + digi)
+            .then((response) => response.json())
+            .then((digimons) => {
+                let nombre = document.querySelector("#name");
+                let imagen = document.querySelector("#imagen");
+                let nivel = document.querySelector("#nivel");
+                for (const digimon of digimons) {
+                    nombre.textContent = digimon.name;
+                    imagen.src = digimon.img;
+                    nivel.textContent = "Level: " + digimon.level;
+                }
+
+
+            });
+    }
+</script>
+
+</html>
